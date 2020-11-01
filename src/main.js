@@ -17,11 +17,13 @@ import 'amfe-flexible'
 
 // 注册使用 Vant 组件库
 Vue.use(Vant)
+    // 导入时间格式处理函数
+import './utils/dayjs'
 
 Vue.config.productionTip = false
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')
