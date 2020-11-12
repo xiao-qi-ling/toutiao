@@ -2,7 +2,7 @@
 <div class="article-item">
     <van-cell-group>
 
-        <van-cell>
+        <van-cell :to="`/article/${article.art_id}`">
 
             <div slot="title" class="title  van-multi-ellipsis--l2">{{article.title}}</div>
             <div slot="label">
@@ -25,22 +25,22 @@
 
 <script>
 export default {
-    name: 'article-item',
-    data() {
-        return {
+  name: 'article-item',
+  data () {
+    return {
 
-        }
-    },
-    methods: {
-
-    },
-    props: {
-        article: {
-            type: Object,
-            required: true
-
-        }
     }
+  },
+  methods: {
+
+  },
+  props: {
+    article: {
+      type: Object,
+      required: true
+
+    }
+  }
 }
 </script>
 

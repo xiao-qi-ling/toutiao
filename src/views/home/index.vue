@@ -1,7 +1,7 @@
 <template>
 <div class="home-contair">
     <van-nav-bar class="page-nav-bar" fixed>
-        <van-button class="search-btn" slot="title" type="info" round size="small" icon="search">搜索 </van-button>
+        <van-button class="search-btn" slot="title" type="info" round size="small" icon="search" to="/search">搜索 </van-button>
     </van-nav-bar>
     <van-tabs v-model="active" animated swipeable class="chanle-tabs">
         <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">
@@ -24,76 +24,73 @@
 
 <script>
 import {
-    getchannels
+  getchannels
 } from '@/api/user'
 import articlelist from './compents/Aricter-list'
 import channlelist from './compents/channel-list'
 import {
-    mapState
+  mapState
 } from 'vuex'
 import {
-    getitem
+  getitem
 } from '@/utils/strong'
 export default {
-    name: 'homeIndex',
-    data() {
-        return {
-            active: 0,
-            channels: [],
-            ischanneleditshow: false
-        }
-    },
-    created() {
-        this.gethomechannels()
-    },
-
-    methods: {
-        async gethomechannels() {
-
-            try {
-                let channles = []
-                if (this.user) {
-                    // 已登录
-
-                    const {
-                        data: res
-                    } = await getchannels()
-                    channles = res.data.channels
-                } else {
-                    // 未登录 获取本地存储的列表
-                    const localchannle = getitem('TOUTIAO_CHANNLE')
-                    if (localchannle) {
-                        // 如果本地有就获取本地的   如果本地没有发送请求获取默认列表
-                        channles = localchannle
-                    } else {
-                        const {
-                            data: res
-                        } = await getchannels()
-                        channles = res.data.channels
-                    }
-
-                }
-
-                // console.log(res);
-                this.channels = channles
-            } catch (err) {
-                console.log(err);
-                this.$toast('获取文章列表数据失败')
-            }
-
-        },
-        onupdataActive(index, ischanneleditshow = true) {
-            // console.log(index);
-            this.active = index
-            this.ischanneleditshow = ischanneleditshow
-        },
-
-    },
-    components: {
-        articlelist,
-        channlelist,
-        ...mapState(['user'])
+  name: 'homeIndex',
+  data () {
+    return {
+      active: 0,
+      channels: [],
+      ischanneleditshow: false
     }
+  },
+  created () {
+    this.gethomechannels()
+  },
+
+  methods: {
+    async gethomechannels () {
+      try {
+        let channles = []
+        if (this.user) {
+          // 已登录
+
+          const {
+            data: res
+          } = await getchannels()
+          channles = res.data.channels
+        } else {
+          // 未登录 获取本地存储的列表
+          const localchannle = getitem('TOUTIAO_CHANNLE')
+          if (localchannle) {
+            // 如果本地有就获取本地的   如果本地没有发送请求获取默认列表
+            channles = localchannle
+          } else {
+            const {
+              data: res
+            } = await getchannels()
+            channles = res.data.channels
+          }
+        }
+
+        // console.log(res);
+        this.channels = channles
+      } catch (err) {
+        console.log(err)
+        this.$toast('获取文章列表数据失败')
+      }
+    },
+    onupdataActive (index, ischanneleditshow = true) {
+      // console.log(index);
+      this.active = index
+      this.ischanneleditshow = ischanneleditshow
+    }
+
+  },
+  components: {
+    articlelist,
+    channlelist,
+    ...mapState(['user'])
+  }
 }
 </script>
 

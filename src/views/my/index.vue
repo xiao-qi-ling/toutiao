@@ -9,7 +9,7 @@
             </div>
             <div class="right">
 
-                <van-button size="mini" round>编辑资料</van-button>
+                <van-button size="mini" round to="/user/profile">编辑资料</van-button>
             </div>
 
         </div>
@@ -78,48 +78,46 @@
 
 <script>
 import {
-    mapState
+  mapState
 } from 'vuex'
 import {
-    getuserinfo
+  getuserinfo
 } from '@/api/user'
 export default {
-    name: 'myIndex',
-    data() {
-        return {
-            // 请求返回的用户信息
-            userinfo: {}
-        }
-    },
-    computed: {
-        ...mapState(['user'])
-    },
-    methods: {
-        onloginout() {
-            this.$dialog.confirm({
-                    title: '是否确认退出',
-                    message: '弹窗内容',
-                })
-                .then(() => {
-                    // 确认走这里
-                    this.$store.commit('setuserkey', null)
-                })
-                .catch(() => {
-                    // 取消走这里
-                    this.$toast.fail('取消退出')
-                });
-
-        }
-    },
-    async created() {
-        // 发起请求用户信息的请求
-        const {
-            data: res
-        } = await getuserinfo()
-        this.userinfo = res.data
-        // console.log(this.userinfo);
-
+  name: 'myIndex',
+  data () {
+    return {
+      // 请求返回的用户信息
+      userinfo: {}
     }
+  },
+  computed: {
+    ...mapState(['user'])
+  },
+  methods: {
+    onloginout () {
+      this.$dialog.confirm({
+        title: '是否确认退出',
+        message: '弹窗内容'
+      })
+        .then(() => {
+          // 确认走这里
+          this.$store.commit('setuserkey', null)
+        })
+        .catch(() => {
+          // 取消走这里
+          this.$toast.fail('取消退出')
+        })
+    }
+  },
+  async created () {
+    // 发起请求用户信息的请求
+    const {
+      data: res
+    } = await getuserinfo()
+    this.userinfo = res.data
+    // console.log(this.userinfo);
+  }
 
 }
 </script>
